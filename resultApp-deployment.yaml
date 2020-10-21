@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: resultapp-deployment
+    labels:
+        name: resultapp-deploy
+        app: resultapp
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: resultApp
+          tier: front-end
+    template:
+      metadata:
+        name: resultapp-pod
+        labels:
+          app: resultApp
+          tier: front-end
+      spec:
+        containers:
+        - name: result-app
+          image: kodekloud/examplevotingapp_result:v1
+          ports:
+              - containerPort: 80
