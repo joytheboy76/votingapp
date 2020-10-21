@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: postgresdb-deployment
+    labels:
+        name: postgresdb-deploy
+        app: postgresdb
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: postgresdb
+          tier: back-end
+    template:
+      metadata:
+        name: postgresdb-pod
+        labels:
+          app: postgresdb
+          tier: back-end
+      spec:
+        containers:
+        - name: postgres-db
+          image: postgres
+          ports:
+              - containerPort: 5432
+          env:
+              - name: POSTGRES_USER
+                value: "postgres"
+              - name: POSTGRES_PASSWORD
+                value: "postgres"
